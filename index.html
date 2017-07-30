@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./lib/metisMenu/metisMenu.min.css">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div class="main">
+        <header id="header" class="header">
+            <div class="container-fluid">
+                我是标题
+            </div>
+        </header>
+        <section id="center" class="center">
+            <div class="container-fluid">
+                <nav class="pull-left center-left" id="nav_main_menu">
+                </nav>
+                <div class="center-right">
+                    <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
+                        <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">主页</a></li>
+                        </ul>
+                        <div id="myTabContent" class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
+                                主页说些什么咧
+                                <iframe src="./pages/baidu.html" frameborder="0" style="width:100%;height:100%"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="footer" class="footer">
+            <div class="container-fluid">
+                @XXX
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>
+<script src="./lib/jquery/jquery.min.js"></script>
+<script src="./lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="./lib/metisMenu/metisMenu.min.js"></script>
+<script src="./js/main.js"></script>
+<script src="./js/data.js"></script>
+<script>
+    $(function() {
+        fw.initMenu(json);
+        $('#nav_main_menu').metisMenu();
+    })
+</script>

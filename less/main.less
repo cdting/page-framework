@@ -1,0 +1,137 @@
+@import "./color.less";
+
+html,body{
+    height: 100%;
+    ul,li{
+        list-style: none;
+        padding:0;
+
+    }
+  
+    a:hover,
+    a:active,
+    a:link,
+    a:visited{
+        text-decoration: none;
+        // color:#337ab7;
+        
+    }
+    a{
+        cursor: default;
+    }
+}
+
+
+//主框架
+.main{
+    min-height: 100%;
+    position: relative;
+    //头部
+    .header{
+        position: absolute;
+        top: 0;
+        width: 100%;
+        height: 50px;
+        border-bottom: 1px solid @border-bgc;
+        .container-fluid{
+            background-color: @main-bgc;
+            height: 100%;
+            line-height: 50px;
+            font-size: 20px;
+        }
+    }
+    //中部
+    .center{
+        padding-bottom: 40px;
+        padding-top: 50px;
+        height: 100%;
+        .container-fluid{
+            // background-color: blueviolet;
+            height: 100%;
+            padding: 0;
+            .center-left{
+                width: 250px;
+                height: 100%;
+                background-color: @main-bgc;
+                display: inline-block;
+            }
+            .center-right{ 
+                padding-left: 260px;
+                padding-bottom: 50px;
+                width: 100%;
+                height: 100%;
+                background-color: @center-right-bgc;
+                .bs-example{
+                    height: 100%;
+                    #myTabs{
+                    height: 49px;
+                    padding-top:7px;
+                    li{
+                        position: relative;
+                        i{
+                            position: absolute;
+                            right: 4px;
+                            top: 2px;
+                            color: rgba(127,127,127,.2);
+                            &:hover{ 
+                                color: rgba(127,127,127,1);
+                            }
+                        }
+                    }
+                    }
+                    #myTabContent{
+                      height: 100%;
+                      div{
+                          height: 100%;
+                      }
+                    }
+                }
+            }
+               
+                
+        }
+
+    } 
+    //底部下
+    .footer{
+        position: absolute;
+        bottom: 1px;
+        width: 100%;
+        height: 40px;
+        background-color: @main-bgc;
+        border-top: 1px solid @border-bgc;
+        .container-fluid{
+            height: 100%;
+            line-height: 40px;
+            text-align: center
+        }
+    }
+
+}
+
+//菜单样式
+.center{
+    .menu-tree {
+        &>li{
+        border-bottom: 1px solid @border-bgc; 
+         background-color: transparent;
+            &.active{
+                background-color: #EEEEEE;
+            } 
+            a{
+                display: block;
+                padding: 10px 10px 10px 15px;
+                 &:hover{
+                background-color: #EEEEEE;
+                } 
+                 
+            }   
+        } 
+        ul{
+            li{
+                background-color:#F8F8F8;
+                padding-left: 15px;
+            }
+        }
+    }
+}
