@@ -13,6 +13,11 @@
         var clickHref = $(this)[0].href;
         var clickText = $(this)[0].innerText;
 
+        //菜单栏滚动条
+        if (($("#center").height() - 100) <= $("#nav_main_menu").height()) {
+            $(".main #header nav#nav_main_menu").attr('style', 'height:' + ($("#center").height()) + "px !important;overflow: auto !important;")
+        }
+
         //截取html页面名称用于id标识
         var htmlNameExt = clickHref.split('/').pop();
         var htmlName = htmlNameExt.slice(0, htmlNameExt.indexOf('.'));
@@ -20,6 +25,8 @@
         if (clickHref.indexOf('#') === -1) {
             //不存在#加页面tab
 
+            //当屏幕宽度小于765的时候，点击弹出的菜单选项后隐藏菜单
+            $("#nav_main_menu").removeClass("in");
             //移除选中的li
             $("#myTabs>li").removeClass('active');
 
@@ -46,6 +53,25 @@
             iframeElement += '<iframe src="' + clickHref + '" style="width:100%;height:100%;" frameborder="0"></iframe></div>';
             $("#myTabContent").append(iframeElement);
 
+        } else {
+
+            if (($(this).parent().parent()[0].id) == "main_menu") {
+                //收起打开的菜单
+                $("#nav_main_menu ul").removeClass("in");
+                //菜单右侧icon图标转换
+                $("#nav_main_menu li a i:nth-child(2)").removeClass().addClass("glyphicon glyphicon-chevron-left pull-right small");
+            }
+
+            var iElement = $(this).children("i").eq(1);
+
+            if (iElement.attr("class").indexOf('glyphicon-chevron-left') !== -1) {
+
+                iElement.removeClass().addClass("glyphicon glyphicon-chevron-down pull-right small");
+            } else {
+
+                iElement.removeClass().addClass("glyphicon glyphicon-chevron-left pull-right small");
+            }
+
         }
     });
 
@@ -67,11 +93,11 @@
         var tabId = this.dataset['tabId'];
         var iframeId = this.dataset['iframeId'];
 
-
         var activeClass = $("#" + tabId).parent().attr("class");
         //删除最后一个tab，选中主页tab
         if (activeClass != "" && (activeClass.indexOf("active") !== -1)) {
             $("#" + tabId).parent().prev().addClass("active");
+            $("#" + iframeId).prev().addClass("active in");
         }
         //移除元素
         $("#" + tabId).parent().remove();
@@ -96,12 +122,12 @@
                 $.each(json, function(key, value) {
                     //对象里面还有对象
                     if (toString.call(value) === '[object Object]') {
-                        treeElement.push('<li class="abc"><a href="#"><i class="glyphicon glyphicon-menu-hamburger small"></i> ' + key + ' <i class="glyphicon glyphicon-chevron-left pull-right small"></i></a><ul>');
+                        treeElement.push('<li><a href="#"><i class="glyphicon glyphicon-menu-hamburger small"></i> ' + key + ' <i class="glyphicon glyphicon-chevron-left pull-right small"></i></a><ul>');
 
                         recursion(value, treeElement);
                         treeElement.push('</ul></li>');
                     } else {
-                        treeElement.push('<li class="abc"><a href="' + value + '"><i class="glyphicon glyphicon-menu-hamburger small"></i> ' + key + '</a></li>')
+                        treeElement.push('<li><a href="' + value + '"><i class="glyphicon glyphicon-menu-hamburger small"></i> ' + key + '</a></li>')
                     }
 
                 })
@@ -111,14 +137,6 @@
 
 
     }
-
-
-
-
-
-
-
-
     window.fw = new fw();
 
 
