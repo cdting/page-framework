@@ -18,6 +18,22 @@
             $(".main #header nav#nav_main_menu").attr('style', 'height:' + ($("#center").height()) + "px !important;overflow: auto !important;")
         }
 
+
+
+
+
+
+        // tab-bottom   
+        $("#myTabs li").each(function(key, value) {
+            // var a = $(this).width();
+
+            console.log($(value).width());
+            // console.log(a);
+        });
+
+
+
+
         //截取html页面名称用于id标识
         var htmlNameExt = clickHref.split('/').pop();
         var htmlName = htmlNameExt.slice(0, htmlNameExt.indexOf('.'));
@@ -102,6 +118,8 @@
         //移除元素
         $("#" + tabId).parent().remove();
         $("#" + iframeId).remove();
+
+
     });
 
 
@@ -121,7 +139,8 @@
             function recursion(json, treeElement) {
                 $.each(json, function(key, value) {
                     //对象里面还有对象
-                    if (toString.call(value) === '[object Object]') {
+                    //在IE中无法识别toString.call,需要在前面加Object.prototype
+                    if (Object.prototype.toString.call(value) === '[object Object]') {
                         treeElement.push('<li><a href="#"><i class="glyphicon glyphicon-menu-hamburger small"></i> ' + key + ' <i class="glyphicon glyphicon-chevron-left pull-right small"></i></a><ul>');
 
                         recursion(value, treeElement);
@@ -133,6 +152,10 @@
                 })
             }
 
+        },
+
+        sun: function(a, b) {
+            return a + b;
         }
 
 

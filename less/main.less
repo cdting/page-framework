@@ -2,10 +2,11 @@
 
 html,body{
     height: 100%;
+    padding:0;
+    margin:0;
     ul,li{
         list-style: none;
         padding:0;
-
     }
   
     a:hover,
@@ -13,8 +14,6 @@ html,body{
     a:link,
     a:visited{
         text-decoration: none;
-        // color:#337ab7;
-        
     }
     a{
         cursor: default;
@@ -42,20 +41,17 @@ html,body{
         }
         .center-left{
                 width: 250px;
-                // height: 100%;
                 background-color: @main-bgc;
-                // display: inline-block;
                 position: relative;
                 z-index: 2;
             }
     }
     //中部
     .center{
-        padding-bottom: 40px;
+        padding-bottom: 42px;
         padding-top: 50px;
         height: 100%;
         .container-fluid{
-            // background-color: blueviolet;
             height: 100%;
             padding: 0;
             .center-right{ 
@@ -81,7 +77,7 @@ html,body{
                     height: 100%;
                     #myTabs{
                     height: 49px;
-                    padding-top:7px;
+                    padding-top: 8px;
                     li{
                         position: relative;
                         i{
@@ -102,23 +98,20 @@ html,body{
                       }
                     }
                 }
-            }
-               
-                
+            } 
         }
-
     } 
     //底部下
     .footer{
         position: absolute;
         bottom: 1px;
         width: 100%;
-        height: 40px;
+        height: 42px;
         background-color: @main-bgc;
-        border-top: 1px solid @border-bgc;
+        // border-top: 1px solid @border-bgc;
         .container-fluid{
             height: 100%;
-            line-height: 40px;
+            line-height: 42px;
             text-align: center
         }
     }
@@ -158,14 +151,47 @@ html,body{
     .center-left{
         display: none ;
         width: 100% !important;
-        // height: 0 !important;
     }
     .center-right{
-        padding-left: 10px !important;
+        padding-left: 0 !important;
         &::before{
             display: none ;
         }
     }
+
+    .tab-bottom{
+            position: absolute;
+            bottom: -42px;
+            left: 5px;
+        #myTabs{ 
+            border-bottom: 1px solid transparent;
+            padding-top: 0 !important;
+            li{
+                i{
+                    top:30px !important;
+                }
+            }
+            a{
+                border-top-color: transparent;
+                border-radius: 0 0 4px 4px;
+            }
+        
+        }
+    }
+    
+
+    .nav-tabs > li.active > a { 
+         border-bottom-color: #ddd !important;
+    }
+
+    #myTabContent{
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 5px;
+    }
+    .center-right{
+        padding-bottom: 5px !important;
+    }
+    
 }
 
 
