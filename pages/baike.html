@@ -9,12 +9,19 @@
 </head>
 
 <body>
-
+    <a href="./map.html" class="iframe-append-tab">返回地图</a>
 </body>
 
 </html>
+<script src="./../lib/jquery/jquery.min.js"></script>
+<script src="./../js/main.js"></script>
 <script>
-    window.onload = function() {
-        window.location.href = "https://baike.baidu.com";
-    }
+    $(function() {
+        //点击iframe重的a标签，追加tab
+        $("body").on("click", ".iframe-append-tab", function(e) {
+            e.preventDefault();
+            //追加父windowtab页面
+            fw.appendTabContent($(this));
+        })
+    })
 </script>

@@ -32,13 +32,24 @@
                 <div class="center-right">
                     <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
                         <div class="tab-bottom">
-                            <ul id="myTabs" class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">百度地图</a></li>
-                            </ul>
+                            <i class="glyphicon glyphicon-backward"></i>
+                            <div id="mytabs_parent" class="mytabs-parent">
+                                <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">首页</a></li>
+                                </ul>
+                            </div>
+                            <i class="glyphicon glyphicon-forward"></i>
+                            <div class="close-tab" id="close_tab">
+                                <a>关闭 <i class="glyphicon glyphicon-chevron-down small"></i></a>
+                                <ul class="" id="close_tab_ul">
+                                    <li data-type="other">关闭其他</li>
+                                    <li data-type="all">关闭所有</li>
+                                </ul>
+                            </div>
                         </div>
                         <div id="myTabContent" class="tab-content">
                             <div role="tabpanel" class="tab-pane fade active in" id="home" aria-labelledby="home-tab">
-                                <iframe src="./pages/baidu.html" frameborder="0" style="width:100%;height:100%"></iframe>
+                                <iframe id="home" src="./pages/baidu.html" frameborder="0" style="width:100%;height:100%"></iframe>
                             </div>
                         </div>
 
@@ -62,12 +73,21 @@
 <script src="./js/data.js"></script>
 <script>
     $(function() {
-
-        console.log(fw.sun(5, 5));
-        //生成菜单树
-        fw.initMenu(json);
-
-        //
+        //自适应高度
+        fw.autoHeight();
+        //生成菜单树,容器id，json数据
+        fw.initMenu("nav_main_menu", json);
+        //激活菜单层级 
         $('#nav_main_menu').metisMenu();
+        //追加tab
+        fw.appendTab();
+        //删除tab,传入父类id
+        fw.deleteTab();
+        //删除全部或其他
+        fw.closeTabAllOrOther();
+
+        $("#close_tab").on("click", "a", function() {
+            $(this).parent().css("overflow", "visible");
+        })
     })
 </script>

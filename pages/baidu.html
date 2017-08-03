@@ -9,12 +9,22 @@
 </head>
 
 <body>
-    <a href="./baike.html">百科</a>
+    <a href="./baike.html" class="iframe-append-tab">百科</a>
+    <a href="./map.html" class="iframe-append-tab">地图</a>
 </body>
 
 </html>
 <script>
-    window.onload = function() {
-        // window.location.href = 'http://www.baidu.com';
-    }
+</script>
+<script src="./../lib/jquery/jquery.min.js"></script>
+<script src="./../js/main.js"></script>
+<script>
+    $(function() {
+        //点击iframe重的a标签，最佳tab
+        $("body").on("click", ".iframe-append-tab", function(e) {
+            e.preventDefault();
+            //追加父windowtab页面
+            fw.appendTabContent($(this));
+        })
+    })
 </script>

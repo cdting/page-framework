@@ -78,13 +78,14 @@ html,body{
                     #myTabs{
                     height: 49px;
                     padding-top: 8px;
+                    display: inline-block;
                     li{
                         position: relative;
                         i{
                             position: absolute;
                             right: 4px;
                             top: 2px;
-                            color: rgba(127,127,127,.2);
+                            color: rgba(127,127,127,.3);
                             &:hover{ 
                                 color: rgba(127,127,127,1);
                             }
@@ -93,9 +94,70 @@ html,body{
                     }
                     #myTabContent{
                       height: 100%;
+                      padding-top: 1px;
                       div{
                           height: 100%;
                       }
+                    }
+                }
+
+                .tab-bottom{
+                    height: 49px;
+                    border-bottom: 1px solid @tab-bgc;
+                    margin-right: 20px;
+                    .mytabs-parent{
+                        display: inline-block;
+                        background: pink;
+                        overflow: hidden;
+                        // width: 434px;
+                    }
+                    i.glyphicon-forward,i.glyphicon-backward{
+                        display: inline-block;
+                        height: 41px;
+                        top: -13px;
+                        width: 45px;
+                        text-align: center;
+                        border: 1px solid @tab-bgc;
+                        line-height: 41px;
+                        border-radius: 4px;
+                        border-bottom: transparent;
+                        color: rgba(127,127,127,.3);
+                        &:hover{
+                            color: rgba(127,127,127,1);
+                        }
+                    }
+                    i.glyphicon-forward{
+                        float: right;
+                        right: 89px;
+                        top: 9px;
+                    }
+                    .close-tab{
+                        display: inline-block;
+                        position: relative;
+                        margin: 9px 15px 0 0;
+                        float: right;
+                        padding: 10px 20px;
+                        border: 1px solid @tab-bgc;
+                        border-radius: 4px;
+                        right: -61px;
+                        border-bottom: transparent;
+                        overflow: hidden;
+                        
+                        ul{
+                            position: absolute;
+                            width: 100px;
+                            top: 40px;
+                            left: -15px;
+                            li{
+                                padding: 10px 20px;
+                                background-color: @main-bgc;
+                                &:hover{
+                                    background-color: @li-active;
+                                    cursor: default;
+                                }
+                                
+                            }
+                        }
                     }
                 }
             } 
@@ -125,20 +187,20 @@ html,body{
         border-bottom: 1px solid @border-bgc; 
          background-color: transparent;
             &.active{
-                background-color: #EEEEEE;
+                background-color: @li-active;
             } 
             a{
                 display: block;
                 padding: 10px 10px 10px 15px;
                  &:hover{
-                background-color: #EEEEEE;
+                background-color: @li-active;
                 } 
                  
             }   
         } 
         ul{
             li{
-                background-color:#F8F8F8;
+                background-color: @main-bgc;
                 padding-left: 15px;
             }
         }
@@ -147,6 +209,8 @@ html,body{
 
 
 
+
+//移动端适配方案
 @media (max-width: 768px){
     .center-left{
         display: none ;
@@ -174,18 +238,16 @@ html,body{
             a{
                 border-top-color: transparent;
                 border-radius: 0 0 4px 4px;
-            }
-        
+            } 
         }
-    }
-    
+    } 
 
     .nav-tabs > li.active > a { 
-         border-bottom-color: #ddd !important;
+         border-bottom-color: @tab-bgc !important;
     }
 
     #myTabContent{
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid @tab-bgc;
         padding-bottom: 5px;
     }
     .center-right{

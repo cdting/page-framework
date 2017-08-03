@@ -13,6 +13,26 @@
             width: 300px;
             background-color: black;
         } */
+        
+        .box {
+            margin: 100px;
+            height: 100px;
+            width: 500px;
+            border: 1px solid black;
+            position: relative;
+            background-color: blanchedalmond;
+            transition: all .2s;
+        }
+        
+        .box-child {
+            position: absolute;
+            height: 80px;
+            border: 1px solid pink;
+            background-color: pink;
+            width: 1000px;
+            top: 10px;
+            /* left: 90px; */
+        }
     </style>
 </head>
 
@@ -77,17 +97,46 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
+
+
+    <div class="box">
+        <div class="box-child">
+            12345678900fjslkjflwuerouweouoihvkjsadu9oqwerjfasskopwierjlksdvklsdljfsdfsl;dkflsjldf jfsknjflajfowuefpodhuruoweuriufsdhkjfaljdfk309r73t8etufiodv8auf9sdu9fu
+        </div>
+    </div>
+    <button id="left" class="clickMe">left</button>
+    <button id="right" class="clickMe">right</button>
 </body>
 
 </html>
 <script src="./lib/jquery/jquery.min.js"></script>
 <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
 <script>
+    $(function() {
+        var $offsetLeft = $(".box-child").scroll()[0].offsetLeft;
+        var $offsetRight = $(".box-child").scroll()[0].offsetWidth / 2;
+
+        $(".clickMe").on("click", function() {
+            var type = $(this).attr("id");
+            if (type === "left") {
+                if ($offsetLeft >= $offsetRight) return;
+                $(".box-child").css("left", -($offsetLeft += 100) + "px");
+
+            } else {
+                if ($offsetLeft <= 0) return;
+                $(".box-child").css("left", -($offsetLeft -= 100) + "px");
+            }
+        })
+
+
+    })
+
+
     window.onload = function() {
         var div = document.getElementById('div');
         div.addEventListener('click', function() {
             var id = this.dataset['tabId'];
-            console.log(id);
+            // console.log(id);
         })
 
 
@@ -98,6 +147,6 @@
             a: 10,
             b: 20
         };
-        console.log(a + b);
+        // console.log(a + b);
     }
 </script>
