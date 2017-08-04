@@ -4,12 +4,21 @@
     function fw() {};
     fw.prototype = {
         autoHeight: function() {
+            var that = this;
             //页面高度适配
             $(window).on("load resize", function() {
                 $("#center").css("height", ($(this).height() - 1) + "px");
                 var h = $(".tab-bottom").width();
-                $("#mytabs_parent").css("width", h - 200 + "px");
 
+                //初始化tab宽度
+                var w = $("body").width();
+                console.log(w);
+                if (w < 768) {
+                    $("#mytabs_parent").css("width", h - 100 + "px");
+                } else {
+                    $("#mytabs_parent").css("width", w + "px");
+                }
+                that.getTabWidth();
             })
         },
         //初始化菜单
@@ -19,7 +28,6 @@
             treeElement.push('<li style="padding:14px;"><i class="glyphicon glyphicon-th small"></i> 菜单栏</li>');
             recursion(jsonData, treeElement);
             treeElement.push('</ul>');
-            // console.log(treeElement.toString().replace(/\,/g, ''));
             $("#" + id).html(treeElement.toString().replace(/\,/g, ''));
 
             //递归菜单树
@@ -44,8 +52,6 @@
             var clickText = clickObj[0].innerText;
             var clickHref = clickObj[0].href;
 
-            console.log($("#myTabs", window.parent.document));
-
             //截取html页面名称用于id标识
             var htmlNameExt = clickHref.split('/').pop();
             var htmlName = htmlNameExt.slice(0, htmlNameExt.indexOf('.'));
@@ -61,6 +67,7 @@
             if (liIsExist(htmlName)) {
                 $("#" + htmlName + "-tab", window.parent.document).attr("aria-expanded", "true").parent().addClass("active");
                 $("#" + htmlName, window.parent.document).addClass("active in");
+                this.tabAutoSlide();
                 return false;
             };
 
@@ -75,6 +82,28 @@
             iframeElement += '<iframe id="' + htmlName + '" src="' + clickHref + '" style="width:100%;height:100%;" frameborder="0"></iframe></div>';
             $("#myTabContent", window.parent.document).append(iframeElement);
 
+            //实时设置tab宽度
+            this.getTabWidth();
+
+            //tab自动滑动效果
+            this.tabAutoSlide();
+            // var tabOffsetLeft = $("#myTabs li.active", window.parent.document).get(0).offsetLeft;
+            // var myTabsWidth = $("#myTabs", window.parent.document).width();
+            // var myTabsParent = $("#mytabs_parent", window.parent.document).width();
+
+            // if (myTabsWidth > myTabsParent) {
+            //     // $("#myTabs", window.parent.document).css("left", -(tabOffsetLeft - (myTabsParent / 2 - 50)));
+            //     var value = -(tabOffsetLeft - (myTabsParent / 2 - 50));
+            //     if (value < 0) {
+            //         $("#myTabs", window.parent.document).css("left", value);
+            //     } else {
+            //         $("#myTabs", window.parent.document).css("left", 0);
+            //     }
+            // } else {
+            //     $("#myTabs", window.parent.document).css("left", 0);
+            // }
+
+
             //检测tab是否已经存在的li
             function liIsExist(htmlName) {
                 var count = 0;
@@ -87,6 +116,30 @@
                 return count;
             };
 
+
+
+        },
+        tabAutoSlide: function() {
+            var tabOffsetLeft = $("#myTabs li.active", window.parent.document).get(0).offsetLeft;
+            var myTabsWidth = $("#myTabs", window.parent.document).width();
+            var myTabsParent = $("#mytabs_parent", window.parent.document).width();
+
+            if (myTabsWidth > myTabsParent) {
+
+                var value = -(tabOffsetLeft - (myTabsParent / 2 - 50));
+                if (value < 0) {
+                    $("#myTabs", window.parent.document).css("left", value);
+                } else {
+                    $("#myTabs", window.parent.document).css("left", 0);
+                }
+            } else {
+                $("#myTabs", window.parent.document).css("left", 0);
+            }
+
+        },
+        //实时设置tab宽度
+        getTabWidth: function() {
+            $("#myTabs", window.parent.document).css("width", $("#myTabs li", window.parent.document).length * 100);
         },
         //追加tab页
         appendTab: function() {
@@ -134,6 +187,7 @@
 
         //删除tab
         deleteTab: function() {
+            var that = this;
             $("#myTabs").on("click", "i", function() {
                 var tabId = this.dataset['tabId'];
                 var iframeId = this.dataset['iframeId'];
@@ -147,11 +201,16 @@
                 //移除元素
                 $("#" + tabId).parent().remove();
                 $("#" + iframeId).remove();
+
+                //实时设置tab宽度
+                that.getTabWidth();
             });
         },
 
         //关闭其他tab或关闭所有tab
         closeTabAllOrOther: function() {
+            var that = this;
+
             $("#close_tab_ul").on("click", "li", function(e) {
 
                 var clickType = this.dataset["type"];
@@ -188,8 +247,39 @@
                         }
                     });
                 }
-                console.log($(this).parent().parent());
                 $(this).parent().parent().css("overflow", "hidden");
+
+
+                //实时设置tab宽度
+                that.getTabWidth();
+                //关闭所有或其它tab时还原首页位置
+                $("#myTabs").css("left", 0);
+            });
+        },
+        //tab标签滑动效果
+        tabSlide: function() {
+            var that = this;
+            $("#tab_bottom").on("click", "i", function(e) {
+                e.preventDefault();
+                var $offsetLeft = $("#myTabs").get(0).offsetLeft;
+                var $offsetRight = $("#myTabs").width();
+                var $mytabsParent = $("#mytabs_parent").width();
+
+                var $offsetLeft = $("#myTabs").scroll().get(0).offsetLeft;
+
+                var clickType = this.dataset["type"];
+                if (clickType === "left") {
+                    if ($offsetRight < $mytabsParent || -$offsetLeft >= $offsetRight / 2) {
+                        return;
+                    }
+                    $(this).next().children().css("left", $offsetLeft -= 50);
+                } else {
+                    if ($offsetLeft >= 0) {
+                        $(this).prev().children().css("left", 0);
+                        return;
+                    }
+                    $(this).prev().children().css("left", $offsetLeft += 50);
+                }
             });
         }
     }

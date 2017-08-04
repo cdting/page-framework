@@ -31,15 +31,15 @@
             <div class="container-fluid">
                 <div class="center-right">
                     <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
-                        <div class="tab-bottom">
-                            <i class="glyphicon glyphicon-backward"></i>
+                        <div class="tab-bottom" id="tab_bottom">
+                            <i class="glyphicon glyphicon-backward" data-type="left"></i>
                             <div id="mytabs_parent" class="mytabs-parent">
                                 <ul id="myTabs" class="nav nav-tabs" role="tablist">
                                     <li role="presentation" class="active"><a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">首页</a></li>
                                 </ul>
                             </div>
-                            <i class="glyphicon glyphicon-forward"></i>
-                            <div class="close-tab" id="close_tab">
+                            <i class="glyphicon glyphicon-forward" data-type="right"></i>
+                            <div class="close-tab hidden-xs" id="close_tab">
                                 <a>关闭 <i class="glyphicon glyphicon-chevron-down small"></i></a>
                                 <ul class="" id="close_tab_ul">
                                     <li data-type="other">关闭其他</li>
@@ -85,9 +85,15 @@
         fw.deleteTab();
         //删除全部或其他
         fw.closeTabAllOrOther();
+        //tab滑动效果
+        fw.tabSlide();
 
         $("#close_tab").on("click", "a", function() {
             $(this).parent().css("overflow", "visible");
         })
+
+        // $("#myTabs").on("click", "li", function() {
+        //     fw.tabAutoSlide();
+        // })
     })
 </script>
