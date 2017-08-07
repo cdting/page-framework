@@ -3,20 +3,42 @@
 
     function fw() {};
     fw.prototype = {
+        // // 绑定事件
+        // bindEvent: function(parentEle, bindEle, eventType, fn) {
+
+        //     $(parentEle).on(eventType, bindEle, fn);
+        // },
+        //点击tab关闭按钮，显示或关闭弹框
+        tabCloseBottomPopDownOrUp: function() {
+            $("#close_tab").on("click", "a", function(event) {
+                var of = $(this).parent().css("overflow");
+                if (of === "hidden") {
+                    $(this).parent().css("overflow", "visible");
+                } else {
+                    $(this).parent().css("overflow", "hidden");
+                }
+            })
+        },
+        //激活层级菜单
+        metisMenu: function() {
+            $('#nav_main_menu').metisMenu();
+        },
         autoHeight: function() {
             var that = this;
             //页面高度适配
+
             $(window).on("load resize", function() {
                 $("#center").css("height", ($(this).height() - 1) + "px");
                 var h = $(".tab-bottom").width();
 
                 //初始化tab宽度
                 var w = $("body").width();
-                console.log(w);
-                if (w < 768) {
-                    $("#mytabs_parent").css("width", h - 100 + "px");
+                // console.log(w);
+                if (w > 768) {
+                    $("#mytabs_parent").css("width", h - 200 + "px");
                 } else {
-                    $("#mytabs_parent").css("width", w + "px");
+                    $("#mytabs_parent").css("width", w - 100 + "px");
+                    //一处
                 }
                 that.getTabWidth();
             })
@@ -25,7 +47,7 @@
         initMenu: function(id, jsonData) {
             var treeElement = new Array();
             treeElement.push("<ul class='menu-tree' id='main_menu'>");
-            treeElement.push('<li style="padding:14px;"><i class="glyphicon glyphicon-th small"></i> 菜单栏</li>');
+            treeElement.push('<li style="padding:14px;"><i class="glyphicon glyphicon-th small"></i> 菜单栏 <i id="close_menu" class="close-menu glyphicon glyphicon-backward small pull-right"></i></li>');
             recursion(jsonData, treeElement);
             treeElement.push('</ul>');
             $("#" + id).html(treeElement.toString().replace(/\,/g, ''));
@@ -139,7 +161,14 @@
         },
         //实时设置tab宽度
         getTabWidth: function() {
-            $("#myTabs", window.parent.document).css("width", $("#myTabs li", window.parent.document).length * 100);
+            var tabWidthCount = 0;
+            // var count = 0;
+            $("#myTabs li", window.parent.document).each(function(key, value) {
+                tabWidthCount += $(value).width();
+                // count++;
+            });
+
+            $("#myTabs", window.parent.document).css("width", tabWidthCount + 30);
         },
         //追加tab页
         appendTab: function() {
@@ -281,6 +310,33 @@
                     $(this).prev().children().css("left", $offsetLeft += 50);
                 }
             });
+        },
+        //显示或隐藏菜单栏
+        showOrHideMenu: function() {
+
+            $("#close_menu").on("click", function() {
+                $(".center-right").css({
+                    "padding-left": "35px"
+                })
+                var iElement = '<i id="show_menu" class="glyphicon glyphicon-forward small show-menu"></i>';
+                $("#menu_bgc").css("width", "30px");
+                $("#menu_bgc").append(iElement);
+
+                $(".center-left").attr("style", "display:none !important");
+
+            });
+
+            $("#menu_bgc").on("click", "#show_menu", function() {
+                $(".center-right").css({
+                    "padding-left": "260px"
+                })
+
+                $("#menu_bgc").css("width", "250px");
+
+
+                $(".center-left").attr("style", "");
+                $(this).remove();
+            })
         }
     }
     window.fw = new fw();

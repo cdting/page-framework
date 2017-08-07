@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./lib/metisMenu/metisMenu.min.css">
     <title>Document</title>
+     
 
 </head>
 
@@ -30,6 +31,7 @@
         <section id="center" class="center">
             <div class="container-fluid">
                 <div class="center-right">
+                    <span id="menu_bgc" class="menu-bgc"></span>
                     <div class="bs-example bs-example-tabs" data-example-id="togglable-tabs">
                         <div class="tab-bottom" id="tab_bottom">
                             <i class="glyphicon glyphicon-backward" data-type="left"></i>
@@ -78,7 +80,7 @@
         //生成菜单树,容器id，json数据
         fw.initMenu("nav_main_menu", json);
         //激活菜单层级 
-        $('#nav_main_menu').metisMenu();
+        fw.metisMenu();
         //追加tab
         fw.appendTab();
         //删除tab,传入父类id
@@ -87,13 +89,16 @@
         fw.closeTabAllOrOther();
         //tab滑动效果
         fw.tabSlide();
+        //点击tab关闭按钮，显示或关闭弹框
+        fw.tabCloseBottomPopDownOrUp();
+        //显示或隐藏菜单栏
+        fw.showOrHideMenu();
 
-        $("#close_tab").on("click", "a", function() {
-            $(this).parent().css("overflow", "visible");
-        })
+
 
         // $("#myTabs").on("click", "li", function() {
         //     fw.tabAutoSlide();
-        // })
+        // }) 
+
     })
 </script>

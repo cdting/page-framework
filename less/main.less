@@ -4,6 +4,7 @@ html,body{
     height: 100%;
     padding:0;
     margin:0;
+    user-select: none;
     ul,li{
         list-style: none;
         padding:0;
@@ -18,6 +19,7 @@ html,body{
     a{
         cursor: default;
     }
+
 }
 
 
@@ -61,8 +63,7 @@ html,body{
                 height: 100%;
                 background-color: @center-right-bgc;
                 position: relative;
-                &::before{
-                    content: "";
+                .menu-bgc{
                     position: absolute;
                     height: 100%;
                     width: 250px;
@@ -70,8 +71,21 @@ html,body{
                     top:0;
                     z-index: 1;
                     background-color: @main-bgc;
-                    border-top:1px solid @border-bgc; 
-                    
+                    border-top:1px solid @border-bgc;
+                    .show-menu{
+                        position: absolute;
+                        top: 0;
+                        line-height: 50;
+                        text-align: center;
+                        display: block;
+                        height: 100%;
+                        width: 30px;
+                        color: rgba(127,127,127,.3);
+                            &:hover{ 
+                                color: rgba(127,127,127,1);
+                                cursor: pointer;
+                            }
+                    }
                 }
                 .bs-example{
                     height: 100%;
@@ -126,6 +140,7 @@ html,body{
                         color: rgba(127,127,127,.3);
                         &:hover{
                             color: rgba(127,127,127,1);
+                            cursor: pointer;
                         }
                     }
                     i.glyphicon-forward{
@@ -133,6 +148,10 @@ html,body{
                         right: 89px;
                         top: 9px;
                     }
+                    
+                    // .showOrHide-close-tab{
+                    //     overflow: hidden !important;
+                    // }
                     .close-tab{
                         display: inline-block;
                         position: relative;
@@ -142,9 +161,11 @@ html,body{
                         border: 1px solid @tab-bgc;
                         border-radius: 4px;
                         right: -61px;
-                        border-bottom: transparent;
+                        border-bottom: transparent; 
                         overflow: hidden;
-                        
+                        a{
+                            cursor: pointer;
+                        }
                         ul{
                             position: absolute;
                             width: 100px;
@@ -206,6 +227,16 @@ html,body{
                 padding-left: 15px;
             }
         }
+        .close-menu{
+            display: inline-block;
+            padding: 5px 0 5px 5px;
+            color: rgba(127,127,127,.3);
+                &:hover{ 
+                    color: rgba(127,127,127,1);
+                    cursor: pointer;
+                }
+
+        }
     }
 }
 
@@ -220,27 +251,32 @@ html,body{
     }
     .center-right{
         padding-left: 0 !important;
-        &::before{
+       .menu-bgc{
             display: none ;
         }
     }
 
     .tab-bottom{
             position: absolute;
-            bottom: -42px;
+            bottom: -29px;
             left: 5px;
-        // .glyphicon-backward{
-        //     top: -20px !important;
-        //     left: -4px !important;
-        // }
-        // .glyphicon-forward{
-        //     top: 1px !important;
-        //     right: -268px !important;
-        // }
+            border-bottom: transparent !important;
+        .glyphicon-backward{
+            top: -9px !important;
+            left: -4px !important;
+            border-top: transparent !important;
+            border-bottom: 1px solid @border-bgc !important;
+        }
+        .glyphicon-forward{
+            top: -50px !important;
+            right: -18px !important;
+            border-top: transparent !important;
+            border-bottom: 1px solid @border-bgc !important;
+        }
      
-        // .mytabs-parent{
-           
-        // }
+        .mytabs-parent{
+           top: 14px;
+        }
         #myTabs{ 
             border-bottom: 1px solid transparent;
             padding-top: 0 !important;
@@ -266,6 +302,10 @@ html,body{
     }
     .center-right{
         padding-bottom: 5px !important;
+    }
+
+    .close-menu{
+        display: none !important;
     }
     
 }
