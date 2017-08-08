@@ -109,22 +109,6 @@
 
             //tab自动滑动效果
             this.tabAutoSlide();
-            // var tabOffsetLeft = $("#myTabs li.active", window.parent.document).get(0).offsetLeft;
-            // var myTabsWidth = $("#myTabs", window.parent.document).width();
-            // var myTabsParent = $("#mytabs_parent", window.parent.document).width();
-
-            // if (myTabsWidth > myTabsParent) {
-            //     // $("#myTabs", window.parent.document).css("left", -(tabOffsetLeft - (myTabsParent / 2 - 50)));
-            //     var value = -(tabOffsetLeft - (myTabsParent / 2 - 50));
-            //     if (value < 0) {
-            //         $("#myTabs", window.parent.document).css("left", value);
-            //     } else {
-            //         $("#myTabs", window.parent.document).css("left", 0);
-            //     }
-            // } else {
-            //     $("#myTabs", window.parent.document).css("left", 0);
-            // }
-
 
             //检测tab是否已经存在的li
             function liIsExist(htmlName) {
@@ -142,21 +126,23 @@
 
         },
         tabAutoSlide: function() {
-            var tabOffsetLeft = $("#myTabs li.active", window.parent.document).get(0).offsetLeft;
-            var myTabsWidth = $("#myTabs", window.parent.document).width();
-            var myTabsParent = $("#mytabs_parent", window.parent.document).width();
+            setTimeout(function() {
+                var tabOffsetLeft = $("#myTabs li.active", window.parent.document).get(0).offsetLeft;
+                var myTabsWidth = $("#myTabs", window.parent.document).width();
+                var myTabsParent = $("#mytabs_parent", window.parent.document).width();
 
-            if (myTabsWidth > myTabsParent) {
+                if (myTabsWidth > myTabsParent) {
 
-                var value = -(tabOffsetLeft - (myTabsParent / 2 - 50));
-                if (value < 0) {
-                    $("#myTabs", window.parent.document).css("left", value);
+                    var value = -(tabOffsetLeft - (myTabsParent / 2 - 50));
+                    if (value < 0) {
+                        $("#myTabs", window.parent.document).css("left", value);
+                    } else {
+                        $("#myTabs", window.parent.document).css("left", 0);
+                    }
                 } else {
                     $("#myTabs", window.parent.document).css("left", 0);
                 }
-            } else {
-                $("#myTabs", window.parent.document).css("left", 0);
-            }
+            }, 50);
 
         },
         //实时设置tab宽度
@@ -217,7 +203,7 @@
         //删除tab
         deleteTab: function() {
             var that = this;
-            $("#myTabs").on("click", "i", function() {
+            $("#myTabs").on("click", "i", function(e) {
                 var tabId = this.dataset['tabId'];
                 var iframeId = this.dataset['iframeId'];
 
@@ -336,6 +322,13 @@
 
                 $(".center-left").attr("style", "");
                 $(this).remove();
+            })
+        },
+        //点击tab的li剧中显示
+        clickTabLiCenter: function() {
+            var that = this;
+            $("#myTabs").on("click", "li", function() {
+                that.tabAutoSlide();
             })
         }
     }
