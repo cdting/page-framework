@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            /* margin: 100px auto; */
+            /* border: 1px solid pink; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box">
+    </div>
+</body>
+
+</html>
+<script src="../js/konva.js"></script>
+<script src="../js/konva.group.js"></script>
+<script>
+    //创建舞台
+    var stage = new Konva.Stage({
+        container: 'box',
+        width: window.innerWidth,
+        height: window.innerHeight,
+    });
+
+    //创建层
+    var layer = new Konva.Layer();
+    //将层放入舞台
+    stage.add(layer);
+
+    //获得舞台的x，y中心点
+    var cenX = stage.width() / 2;
+    var cenY = stage.height() / 2;
+    console.log(cenY);
+
+    //下面开始基于舞台层的画图
+    //内边框
+    var innerCircle = new Konva.Circle({
+        x: cenX, //已x坐标起画圆
+        y: cenY, //已Y坐标起画圆
+        radius: 120, //圆半径
+        strokeWidth: 2, //圆线条宽度
+        dash: [10, 10], //圆线条显示方式，这里是虚线
+        stroke: '#ddd' //圆线条颜色
+    });
+    //加入到层中
+    layer.add(innerCircle);
+
+    //外边框
+    var externalCircle = new Konva.Circle({
+        x: cenX,
+        y: cenY,
+        radius: 220,
+        strokeWidth: 2,
+        dash: [10, 10],
+        stroke: '#ddd'
+    });
+    layer.add(externalCircle);
+
+
+    //内实心圆
+    var solidCircle = new circleGroup({
+        x: cenX,
+        y: cenY,
+        innerOpacity: .8,
+        outerOpacity: .2,
+        innerRadius: 65,
+        outerRadius: 85,
+        innerStyle: '#4DB6E3',
+        outerStyle: '#ddd',
+        text: '我是中心点',
+    });
+    solidCircle.addToGroupOrCircle(layer);
+
+
+    var animationLayer = new Konva.Layer();
+    stage.add(animationLayer);
+
+    //给innerCircle加小圆
+
+    //因为旋转是旋转的组，所以需要放在一个组里面
+    var groupOne = new Konva.Group({
+        x: cenX,
+        y: cenY
+    });
+
+    var groupTwo = new Konva.Group({
+        x: cenX,
+        y: cenY
+    });
+
+    var innerCircleSmallOne = new circleGroup({
+        x: 120 * Math.cos(-60 * Math.PI / 180),
+        y: 120 * Math.sin(-60 * Math.PI / 180),
+        innerOpacity: .8,
+        outerOpacity: .2,
+        innerRadius: 30,
+        outerRadius: 38,
+        innerStyle: '#649E75',
+        outerStyle: '#ddd',
+        text: 'baby',
+    })
+
+    innerCircleSmallOne.addToGroupOrCircle(groupOne);
+
+    var innerCircleSmallTwo = new circleGroup({
+        x: 120 * Math.cos(100 * Math.PI / 180),
+        y: 120 * Math.sin(100 * Math.PI / 180),
+        innerOpacity: .8,
+        outerOpacity: .2,
+        innerRadius: 30,
+        outerRadius: 38,
+        innerStyle: '#B58990',
+        outerStyle: '#ddd',
+        text: 'hello',
+    })
+
+    //将定义小组，放在定义的一个大组里面
+    innerCircleSmallTwo.addToGroupOrCircle(groupOne);
+    //将大组放在动画层里面
+    animationLayer.add(groupOne);
+
+
+    //externalCircle
+
+
+    var externalCircleOne = new circleGroup({
+        x: 220 * Math.cos(60 * Math.PI / 180),
+        y: 220 * Math.sin(60 * Math.PI / 180),
+        innerOpacity: .8,
+        outerOpacity: .2,
+        innerRadius: 45,
+        outerRadius: 55,
+        innerStyle: '#ADA964',
+        outerStyle: '#ddd',
+        text: '哈哈',
+    })
+    externalCircleOne.addToGroupOrCircle(groupTwo);
+
+
+    var externalCircleTwo = new circleGroup({
+        x: 220 * Math.cos(220 * Math.PI / 180),
+        y: 220 * Math.sin(220 * Math.PI / 180),
+        innerOpacity: .8,
+        outerOpacity: .2,
+        innerRadius: 45,
+        outerRadius: 55,
+        innerStyle: '#52579D',
+        outerStyle: '#ddd',
+        text: '哈哈',
+    })
+    externalCircleTwo.addToGroupOrCircle(groupTwo);
+
+    animationLayer.add(groupTwo);
+
+    /***************************************************************/
+
+    // //内实心圆
+    // var solidCircle = new Konva.Circle({
+    //     x: cenX,
+    //     y: cenY,
+    //     radius: 65,
+    //     fill: '#4DB6E3', //圆背景色 
+    //     opacity: .8 //设置圆透明度
+
+    // });
+    // layer.add(solidCircle);
+
+    // //添加中心实心圆中的文本
+    // var solidText = new Konva.Text({
+    //     x: cenX - 40,
+    //     y: cenY - 10,
+    //     text: '我是中心',
+    //     fontSize: 20,
+    //     fontFamily: '微软雅黑',
+    //     fill: '#fff',
+    //     align: 'center'
+
+    // }); 
+    // layer.add(solidText);
+
+    // //在已有的环上在套个环，相当于带了个戒指
+    // var ring = new Konva.Ring({
+    //     x: cenX,
+    //     y: cenY,
+    //     innerRadius: 65, //外环开始的半径
+    //     outerRadius: 90, //外环结束的半径
+    //     fill: '#ddd',
+    //     opacity: .5
+    // });
+    // layer.add(ring);
+
+
+    // //给innerCircle加小圆
+    // var innerSmallCircle = new Konva.Circle({
+    //     //中心点加上要浮动的内圆半径
+    //     //乘以 一个余玹弧度
+    //     x: cenX + 120 * Math.cos(-60 * Math.PI / 180),
+    //     //乘以正眩弧度
+    //     y: cenY + 120 * Math.sin(-60 * Math.PI / 180),
+    //     radius: 30,
+    //     fill: '#FFAEC9',
+    //     opacity: .7
+    // });
+
+    // layer.add(innerSmallCircle);
+    /*************************************************************************/
+
+    stage.draw();
+
+    var animationSecond = 60;
+
+    //制作动画函数在（帧动画）,这个函数类似于setIterval
+    //第二个参数标识要使用动画的层
+    var animate = new Konva.Animation(function(frame) {
+        //frame.timeDiff是获得上次执行与现在执行的时间间隔
+        //计算 当前帧需要旋转的角度
+
+
+        var rotateAngle = animationSecond * frame.timeDiff / 1000;
+
+        /******************一环*************************/
+        //给组添加转动
+        groupOne.rotate(rotateAngle);
+
+        //让文字反转，这样看起来就是正的了
+        //拿到大组中的所有小组来反转
+        groupOne.getChildren().each(function(item, index) {
+            item.rotate(-rotateAngle); //反向旋转小组
+        });
+
+        /*****************一环结束**********************/
+
+
+        groupTwo.rotate(-rotateAngle);
+
+        //让文字反转，这样看起来就是正的了
+        //拿到大组中的所有小组来反转
+        groupTwo.getChildren().each(function(item, index) {
+            item.rotate(rotateAngle); //反向旋转小组
+        });
+    }, animationLayer);
+
+    //启动动画
+    animate.start();
+
+
+
+    //添加事件
+    console.log(animationSecond);
+    animationLayer.on('mouseover', function() {
+        animationSecond = 10;
+    });
+
+    animationLayer.on('mouseout', function() {
+        animationSecond = 60;
+    });
+</script>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box"></div>
+</body>
+
+</html>
+<script src="../js/konva.js"></script>
+<script>
+    var XLineData = [{
+        name: "星期一",
+        value: .95,
+        color: 'red'
+    }, {
+        name: "星期二",
+        value: .65,
+        color: "pink"
+    }, {
+        name: "星期三",
+        value: .85,
+        color: "blue"
+    }, {
+        name: "星期四",
+        value: .67,
+        color: "green"
+    }, {
+        name: "星期五",
+        value: .23,
+        color: "#88A4AB"
+    }, {
+        name: "星期六",
+        value: .7,
+        color: "#7092BE"
+    }, {
+        name: '星期天',
+        value: .76,
+        color: '#936169'
+    }];
+
+    var YLineData = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+
+    var innerLineYData = [{
+        color: 'red',
+        data: [230, 120, 450, 550, 760, 888, 920]
+    }, {
+        color: 'pink',
+        data: [700, 888, 760, 550, 450, 120, 230]
+    }, {
+        color: 'blue',
+        data: [560, 590, 630, 450, 780, 850, 890]
+    }, {
+        color: 'green',
+        data: [30, 80, 150, 200, 500, 700, 900]
+    }, {
+        color: 'purple',
+        data: [300, 400, 500, 600, 700, 800, 900]
+    }];
+
+    var height = window.innerHeight;
+    var width = window.innerWidth;
+
+    var stage = new Konva.Stage({
+        width: width,
+        height: height,
+        container: 'box'
+    });
+
+    var x0 = 1 / 8 * stage.width();
+    var y0 = 7 / 8 * stage.height();
+
+    var layer = new Konva.Layer();
+    stage.add(layer);
+
+    var XYLineGroup = new Konva.Group({
+        x: x0,
+        y: y0
+    });
+    var XLine = new Konva.Line({
+        points: [0, 0, 6 / 8 * stage.width(), 0],
+        strokeWidth: 1,
+        stroke: 'black',
+
+    });
+    XYLineGroup.add(XLine);
+
+    var YLine = new Konva.Line({
+            points: [0, 0, 0, -6 / 8 * stage.height()],
+            strokeWidth: 1,
+            stroke: 'black'
+        })
+        // console.log(6 / 8 * stage.height());
+    XYLineGroup.add(YLine);
+
+    var XLineMaxWidth = 6 / 8 * stage.width();
+    var YLineMaxHeight = 6 / 8 * stage.height();
+
+    // console.log(YLineMaxHeight + '++++++++++++++++=');
+    //y轴
+    YLineData.forEach(function(item, index) {
+        var YLineInterval = YLineMaxHeight / YLineData.length * (index + 1);
+        // console.log(YLineInterval)
+        var XLine = new Konva.Line({
+            points: [0, -YLineInterval, XLineMaxWidth, -YLineInterval],
+            strokeWidth: 1,
+            stroke: '#ddd',
+            opacity: .5
+
+        });
+        XYLineGroup.add(XLine);
+
+        var YText = new Konva.Text({
+            x: -40,
+            y: -YLineInterval,
+            text: item,
+        });
+        XYLineGroup.add(YText);
+    });
+
+    //x轴
+    XLineData.forEach(function(item, index) {
+        var XLineInterval = XLineMaxWidth / (XLineData.length - 1) * (index);
+        // console.log(XLineInterval)
+        var YLine = new Konva.Line({
+
+            points: [XLineInterval, 0, XLineInterval, -YLineMaxHeight],
+            strokeWidth: 1,
+            stroke: '#ddd',
+        });
+        XYLineGroup.add(YLine);
+
+        var XText = new Konva.Text({
+            x: XLineInterval,
+            y: 75,
+            text: item.name,
+            fontSize: 16,
+            fill: item.color,
+            // align: 'left',
+            rotation: 30,
+            padding: -50
+        });
+
+        XYLineGroup.add(XText);
+    })
+    layer.add(XYLineGroup);
+
+    var innerLayer = new Konva.Layer();
+    stage.add(innerLayer);
+
+    var innerGroup = new Konva.Group({
+        x: x0,
+        y: y0
+    });
+
+    var innerCircleGroup = new Konva.Group({
+        x: x0,
+        y: y0
+    });
+
+    innerLineYData.forEach(function(value, key) {
+        var array = new Array();
+        value.data.forEach(function(item, index) {
+            var y = (item / (YLineData.length * 100) * YLineMaxHeight);
+            var x = XLineMaxWidth / (value.data.length - 1) * index;
+            array.push(x, -y);
+
+            innerLineCircle({
+                x: x,
+                y: -y,
+                color: XLineData[index].color,
+                name: item + ""
+            });
+        });
+        innerLine({
+            data: array,
+            color: value.color
+        });
+    });
+
+    function innerLine(option) {
+        innerGroup.add(new Konva.Line({
+            points: option.data,
+            stroke: option.color,
+            strokeWidth: 1,
+            option: 5
+        }));
+    };
+
+    function innerLineCircle(option) {
+        innerCircleGroup.add(new Konva.Circle({
+            x: option.x,
+            y: option.y,
+            radius: 3,
+            fill: option.color,
+            name: option.name
+        }))
+    };
+
+
+    var tooltip = new Konva.Label({
+        opacity: 0.75,
+        visible: false,
+        listening: true
+    });
+    tooltip.add(new Konva.Tag({
+        fill: 'black',
+        pointerDirection: 'down',
+        pointerWidth: 10,
+        pointerHeight: 10,
+        lineJoin: 'round',
+        shadowColor: 'black',
+        shadowBlur: 10,
+        shadowOffset: 10,
+        shadowOpacity: 0.2
+    }));
+    tooltip.add(new Konva.Text({
+        text: '',
+        fontFamily: 'Calibri',
+        fontSize: 18,
+        padding: 5,
+        fill: 'white'
+    }));
+    innerCircleGroup.add(tooltip);
+
+
+    innerLayer.add(innerGroup);
+    innerLayer.add(innerCircleGroup);
+    stage.draw();
+
+    innerLayer.on('mouseover mousemove dragmove', function(e) {
+        var node = e.target;
+
+        // console.log(e.target);
+        console.log(e.target.parent.children);
+        var mousePos = node.getStage().getPointerPosition();
+
+        tooltip.position({
+            x: mousePos.x - XLineMaxWidth / (XLineData.length - 1),
+            y: mousePos.y - 7 / 8 * stage.height()
+        });
+        tooltip.getText().setText("状态：" + node.getName());
+        // console.log(node);
+        tooltip.show();
+        innerLayer.batchDraw();
+    });
+
+    innerLayer.on('mouseout', function() {
+        tooltip.hide();
+        innerLayer.draw();
+    });
+
+
+
+
+
+    // var array = new Array();
+    // innerLineYData.forEach(function(item, index) {
+    //     var y = parseInt(item / (YLineData.length * 100) * YLineMaxHeight);
+    //     var x = parseInt(XLineMaxWidth / innerLineYData.length * (index + 1));
+    //     if (flag) {
+    //         array.push(0, -y);
+
+    //         flag = false;
+    //     } else {
+    //         array.push(x, -y);
+    //     }
+    // });
+    // // console.log(array + "array");
+    // var innerLineOne = new Konva.Line({
+    //     points: array,
+    //     stroke: 'red',
+    //     strokeWidth: 1,
+    //     opacity: .5
+    // });
+</script>

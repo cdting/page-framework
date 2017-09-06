@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <button id="msg">提示</button>
+</body>
+
+</html>
+<script src="../message-box/js/message_box.js"></script>
+<script>
+    window.onload = function() {
+        document.getElementById("msg").addEventListener("click", function() {
+
+            message_box.showAlert("消息", "手机号错误! ");
+        }, false)
+
+
+
+    }
+</script>

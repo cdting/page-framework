@@ -1,13 +1,32 @@
 (function(window) {
     "use strict";
 
-    function fw() {};
+    function fw() {
+        // this._init(jsonData)
+    };
     fw.prototype = {
-        // // 绑定事件
-        // bindEvent: function(parentEle, bindEle, eventType, fn) {
-
-        //     $(parentEle).on(eventType, bindEle, fn);
-        // },
+        _init: function(jsonData) {
+            //自适应高度
+            this.autoHeight();
+            //生成菜单树,容器id，json数据
+            this.initMenu("nav_main_menu", jsonData);
+            //激活菜单层级 
+            this.metisMenu();
+            //追加tab
+            this.appendTab();
+            //删除tab,传入父类id
+            this.deleteTab();
+            //删除全部或其他
+            this.closeTabAllOrOther();
+            //tab滑动效果
+            this.tabSlide();
+            //点击tab关闭按钮，显示或关闭弹框
+            this.tabCloseBottomPopDownOrUp();
+            //显示或隐藏菜单栏
+            this.showOrHideMenu();
+            //点击tab的li剧中显示
+            this.clickTabLiCenter();
+        },
         //点击tab关闭按钮，显示或关闭弹框
         tabCloseBottomPopDownOrUp: function() {
             $("#close_tab").on("click", "a", function(event) {

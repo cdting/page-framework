@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../message-box/css/message_box.css">
     <title>Document</title>
 </head>
 
@@ -15,6 +16,7 @@
 </html>
 <script src="./../lib/jquery/jquery.min.js"></script>
 <script src="./../js/main.js"></script>
+<script src="../message-box/js/message_box.js"></script>
 <script>
     $(function() {
         //点击iframe重的a标签，追加tab
@@ -22,6 +24,12 @@
             e.preventDefault();
             //追加父windowtab页面
             fw.appendTabContent($(this));
+            message_box.showLoading();
+            setTimeout(function() {
+                message_box.hideLoading();
+            }, 3000);
+
+
         })
     })
 </script>

@@ -1,4 +1,12 @@
 var json = {
+    "弹框": {
+        "Alert": "./pages/alert-pop-up.html"
+    },
+    "可视化图表": {
+        "转圈圈": "./pages/demo1.html",
+        "柱状图": "./pages/demo2.html",
+        "折线图": "./pages/demo3.html"
+    },
     "网址大全": {
         "百度": {
             "百度地图": "./pages/map.html",

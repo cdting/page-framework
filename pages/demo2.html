@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            /* height: 500px;
+            width: 500px;
+            border: 1px solid black;
+            margin: 100px auto; */
+        }
+    </style>
+</head>
+<div id="box" class="box">
+</div>
+
+<body>
+</body>
+
+</html>
+<script src="../js/konva.js"></script>
+<script src="../js/konva.columnar.js"></script>
+<script>
+    var XLineData = [{
+        name: "毛衣",
+        value: .95,
+        color: 'red'
+    }, {
+        name: "皮夹克",
+        value: .65,
+        color: "pink"
+    }, {
+        name: "羽绒服",
+        value: .85,
+        color: "blue"
+    }, {
+        name: "牛仔裤",
+        value: .67,
+        color: "green"
+    }, {
+        name: "寸衣",
+        value: .23,
+        color: "#88A4AB"
+    }, {
+        name: "连衣裙",
+        value: .7,
+        color: "#7092BE"
+    }, {
+        name: '短裤',
+        value: .76,
+        color: '#936169'
+    }];
+
+
+    var YLineData = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+
+    // var width = document.getElementById("box").clientWidth;
+    // var height = document.getElementById("box").clientHeight;
+
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+
+    var konvaColumnar = new konvaColumnar({
+        containerID: 'box',
+        containerWidth: width,
+        containerHeight: height,
+        XLineData: XLineData,
+        YLineData: YLineData
+    });
+</script>
