@@ -70,6 +70,7 @@
             recursion(jsonData, treeElement);
             treeElement.push('</ul>');
             $("#" + id).html(treeElement.toString().replace(/\,/g, ''));
+            // console.log(treeElement);
 
             //递归菜单树
             function recursion(json, treeElement) {
@@ -90,12 +91,14 @@
         },
         //追加tab类容方法
         appendTabContent: function(clickObj) {
+
             var clickText = clickObj[0].innerText;
             var clickHref = clickObj[0].href;
 
             //截取html页面名称用于id标识
             var htmlNameExt = clickHref.split('/').pop();
             var htmlName = htmlNameExt.slice(0, htmlNameExt.indexOf('.'));
+
             //追加tab移除当前选中的li样式
             $("#myTabs>li", window.parent.document).removeClass('active');
 
@@ -187,7 +190,6 @@
                 if (($("#center").height() - 100) <= $("#nav_main_menu").height()) {
                     $(".main #header nav#nav_main_menu").attr('style', 'height:' + ($("#center").height()) + "px !important;overflow: auto !important;")
                 }
-
                 if (clickHref.indexOf('#') === -1) {
                     //不存在#加页面tab
                     //当屏幕宽度小于765的时候，点击弹出的菜单选项后隐藏菜单
@@ -196,7 +198,6 @@
                     that.appendTabContent($(this));
 
                 } else {
-
                     if (($(this).parent().parent()[0].id) == "main_menu") {
                         //收起打开的菜单
                         $("#nav_main_menu ul").removeClass("in");
@@ -223,8 +224,10 @@
         deleteTab: function() {
             var that = this;
             $("#myTabs").on("click", "i", function(e) {
-                var tabId = this.dataset['tabId'];
-                var iframeId = this.dataset['iframeId'];
+                // var tabId = this.dataset['tabId'];
+                // var iframeId = this.dataset['iframeId'];
+                var tabId = $(this).attr("data-tab-id");
+                var iframeId = $(this).attr("data-iframe-id");
 
                 var activeClass = $("#" + tabId).parent().attr("class");
                 //删除最后一个tab，选中主页tab
@@ -247,7 +250,8 @@
 
             $("#close_tab_ul").on("click", "li", function(e) {
 
-                var clickType = this.dataset["type"];
+                // var clickType = this.dataset["type"];
+                var clickType = $(this).attr("data-type");
                 //关闭全部
                 if (clickType === "all") {
                     // myTabContent myTabs
@@ -301,7 +305,8 @@
 
                 var $offsetLeft = $("#myTabs").scroll().get(0).offsetLeft;
 
-                var clickType = this.dataset["type"];
+                // var clickType = this.dataset["type"];
+                var clickType = $(this).attr("data-type");
                 if (clickType === "left") {
                     if ($offsetRight < $mytabsParent || -$offsetLeft >= $offsetRight / 2) {
                         return;

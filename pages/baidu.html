@@ -16,13 +16,14 @@
 </html>
 <script>
 </script>
-<script src="./../lib/jquery/jquery.min.js"></script>
+<script src="./../lib/jquery/jquery-1.11.1.min.js"></script>
 <script src="./../js/main.js"></script>
 <script>
     $(function() {
         //点击iframe重的a标签，最佳tab
         $("body").on("click", ".iframe-append-tab", function(e) {
             e.preventDefault();
+
             //追加父windowtab页面
             fw.appendTabContent($(this));
         })

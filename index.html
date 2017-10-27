@@ -11,13 +11,16 @@
 
     <link rel="stylesheet" href="./message-box/css/message_box.css">
     <title>Document</title>
-
+    <!--[if lte IE 9]> 
+        <script src="./lib/bootstrap/js/respond.min.js"></script>
+        <script src="./lib/bootstrap/js/html5shiv.min.js"></script>
+     <![endif]-->
 
 </head>
 
 <body>
     <div class="main">
-        <header id="header" class="header">
+        <div id="header" class="header">
             <div class="container-fluid navbar-default " role="navigation">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav_main_menu">
                     <span class="sr-only">Toggle navigation</span>
@@ -27,10 +30,10 @@
                 </button>
                 <span>我是标题</span>
             </div>
-            <nav class="pull-left center-left navbar-collapse collapse " role="navigation" id="nav_main_menu">
-            </nav>
-        </header>
-        <section id="center" class="center">
+            <div class="pull-left center-left navbar-collapse collapse " role="navigation" id="nav_main_menu" class="">
+            </div>
+        </div>
+        <div id="center" class="center">
             <div class="container-fluid">
                 <div class="center-right">
                     <span id="menu_bgc" class="menu-bgc"></span>
@@ -60,20 +63,20 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <section id="footer" class="footer hidden-xs">
+        </div>
+        <div id="footer" class="footer hidden-xs">
             <div class="container-fluid">
                 @XXX
             </div>
-        </section>
+        </div>
     </div>
     <!-- <div id="fujiedian">我是父节点</div> -->
 </body>
 
 </html>
-<script src="./lib/jquery/jquery.min.js"></script>
+<script src="./lib/jquery/jquery-1.11.1.min.js"></script>
 <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="./lib/metisMenu/metisMenu.min.js"></script>
+<script src="./lib/metisMenu/metisMenu.js"></script>
 <script src="./js/data.js"></script>
 <script src="./js/main.js"></script>
 
