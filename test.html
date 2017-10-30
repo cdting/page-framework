@@ -109,7 +109,7 @@
 </body>
 
 </html>
-<script src="./lib/jquery/jquery.min.js"></script>
+<script src="./lib/jquery/jquery-1.11.1.min.js"></script>
 <script src="./lib/bootstrap/js/bootstrap.min.js"></script>
 <script>
     $(function() {
@@ -149,4 +149,28 @@
         };
         // console.log(a + b);
     }
+
+    $(function() {
+        function animal() {
+            this.name = "Animal";
+            this.showName = function() {
+                console.log(this.name);
+            }
+        }
+
+        function cat() {
+            this.name = "Cat"
+            this.showName = function() {
+                console.log(this.name);
+            }
+        }
+
+        var a = new animal();
+        var c = new cat();
+
+
+
+
+
+    })
 </script>

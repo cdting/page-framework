@@ -180,6 +180,8 @@
         },
         //追加tab页
         appendTab: function() {
+            // return;
+
             var that = this;
             $("#nav_main_menu").on("click", "a", function(e) {
                 e.preventDefault();
@@ -193,14 +195,15 @@
                 if (clickHref.indexOf('#') === -1) {
                     //不存在#加页面tab
                     //当屏幕宽度小于765的时候，点击弹出的菜单选项后隐藏菜单
-                    $("#nav_main_menu").removeClass("in");
+                    // $("#nav_main_menu").removeClass("in");
                     //调用tab追加方法
                     that.appendTabContent($(this));
 
                 } else {
                     if (($(this).parent().parent()[0].id) == "main_menu") {
                         //收起打开的菜单
-                        $("#nav_main_menu ul").removeClass("in");
+
+                        // $("#nav_main_menu ul").removeClass("in");
                         //菜单右侧icon图标转换
                         $("#nav_main_menu li a i:nth-child(2)").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-left");
                     }
