@@ -190,7 +190,8 @@
 
                 //菜单栏滚动条
                 if (($("#center").height() - 100) <= $("#nav_main_menu").height()) {
-                    $(".main #header nav#nav_main_menu").attr('style', 'height:' + ($("#center").height()) + "px !important;overflow: auto !important;")
+                    console.log(123);
+                    $(".main #header #nav_main_menu").attr('style', 'height:' + ($("#center").height()) + "px !important;overflow: auto !important;")
                 }
                 if (clickHref.indexOf('#') === -1) {
                     //不存在#加页面tab
@@ -200,6 +201,14 @@
                     that.appendTabContent($(this));
 
                 } else {
+
+                    var iElement = $(this).children("i").eq(1);
+                    //点击自己切换收起
+                    if (iElement.hasClass("glyphicon-chevron-down")) {
+                        iElement.removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-left");
+                        return;
+                    }
+
                     if (($(this).parent().parent()[0].id) == "main_menu") {
                         //收起打开的菜单
 
@@ -207,8 +216,6 @@
                         //菜单右侧icon图标转换
                         $("#nav_main_menu li a i:nth-child(2)").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-left");
                     }
-
-                    var iElement = $(this).children("i").eq(1);
 
                     if (iElement.hasClass('glyphicon-chevron-left')) {
 
